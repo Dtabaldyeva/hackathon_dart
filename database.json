@@ -1,0 +1,60 @@
+{
+  "products": [
+    {
+      "name": "T-shirt",
+      "price": 2000,
+      "color": "white",
+      "img": "https://d3o2e4jr3mxnm3.cloudfront.net/Mens-Jake-Guitar-Vintage-Crusher-Tee_68382_1_lg.png",
+      "desc": "Cotton white t-shirt",
+      "id": 1
+    },
+    {
+      "name": "Shirt",
+      "price": 2500,
+      "color": "red",
+      "img": "https://www.prada.com/content/dam/pradanux_products/U/UCS/UCS319/1YOTF010O/UCS319_1YOT_F010O_S_182_SLF.png",
+      "desc": "Bright hawaiian shirt",
+      "id": 3
+    },
+    {
+      "name": "Dress",
+      "price": 3000,
+      "color": "white",
+      "img": "https://www.burdastyle.com/pub/media/catalog/product/cache/7bd3727382ce0a860b68816435d76e26/107/BUS-PAT-BURTE-1320516/1170x1470_BS_2016_05_132_front.png",
+      "desc": "White dress with a flower print",
+      "id": 4
+    },
+    {
+      "name": "Bag",
+      "price": 1500,
+      "color": "green",
+      "img": "https://images.ctfassets.net/5gvckmvm9289/3BlDoZxSSjqAvv1jBJP7TH/65f9a95484117730ace42abf64e89572/Noissue-x-Creatsy-Tote-Bag-Mockup-Bundle-_4_-2.png",
+      "desc": "White nag with green leaves",
+      "id": 5
+    },
+    {
+      "name": "Cap",
+      "price": 1000,
+      "color": "black",
+      "img": "https://d3o2e4jr3mxnm3.cloudfront.net/Rocket-Vintage-Chill-Cap_66374_1_lg.png",
+      "desc": "Black cap with a yellow cat badge",
+      "id": 6
+    },
+    {
+      "name": "Jeans",
+      "price": 4500,
+      "color": "blue",
+      "img": "https://www.vintageindustries.nl/download_front/qympzk1762/2217_Arrow_Jacket_Forest.png",
+      "desc": "Blue jeans",
+      "id": 7
+    },
+    {
+      "name": "Coat",
+      "price": 7000,
+      "color": "yellow",
+      "img": "https://www.pngarts.com/files/3/Women-Jacket-PNG-High-Quality-Image.png",
+      "desc": "Trenchcoat with a belt",
+      "id": 8
+    }
+  ]
+}
