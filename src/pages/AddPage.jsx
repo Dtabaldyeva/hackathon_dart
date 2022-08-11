@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 import {
   Container,
   TextField,
@@ -45,6 +47,23 @@ import { AdminContext } from "../contexts/AdminProvider";
 // const Select = styled.div``;
 // const Button = styled.button``;
 
+const Top = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+`;
+
+const TopButton = styled.button`
+  padding: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  border: ${(props) => props.type === "filled" && "none"};
+  background-color: ${(props) =>
+    props.type === "filled" ? "black" : "transparent"};
+  color: ${(props) => props.type === "filled" && "white"};
+`;
+
 function AdminAddPage() {
   const { sendNewProduct } = React.useContext(AdminContext);
 
@@ -80,6 +99,11 @@ function AdminAddPage() {
     <div className="admin-add-page">
       <Container>
         <h2>Add products</h2>
+        <Top>
+          <TopButton>
+            <Link to={`/`}>Home</Link>
+          </TopButton>
+        </Top>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -128,7 +152,7 @@ function AdminAddPage() {
           />
 
           <Button variant="outlined" type="submit">
-            Добавить
+            Add
           </Button>
         </form>
       </Container>

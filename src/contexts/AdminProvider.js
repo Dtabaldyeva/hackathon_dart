@@ -28,6 +28,12 @@ const reducer = (state, action) => {
       basketCount: action.payload,
     };
   }
+  if (action.type === "GET_PRODUCTS_FROM_BASKET") {
+    return {
+      ...state,
+      basketProducts: action.payload,
+    };
+  }
   return state;
 };
 
@@ -36,6 +42,11 @@ function AdminProvider({ children }) {
     products: [],
     productToEdit: null,
     productDetails: null,
+    basketProducts: {
+      clothes: [],
+      totalPrice: 0,
+    },
+    basketCount: 0,
   });
 
   const sendNewProduct = (newProduct) => {
@@ -86,7 +97,6 @@ function AdminProvider({ children }) {
     }).then(() => getProducts());
   };
 
-  // ! UPDATE - 1 PART
   const getProductToEdit = (id) => {
     fetch(`${productsApi}/${id}`)
       .then((res) => res.json())
@@ -98,7 +108,7 @@ function AdminProvider({ children }) {
         dispatch(action);
       });
   };
-  // ! UPDATE - 2 PART
+
   const saveEditedProduct = (editedProduct) => {
     fetch(`${productsApi}/${editedProduct.id}`, {
       method: "PATCH",
@@ -116,6 +126,82 @@ function AdminProvider({ children }) {
   const limit = 4;
   const [pagesCount, setPagesCount] = React.useState(1);
   const [currentPage, setCurrentPage] = React.useState(1);
+
+  const addProductToBasket = (product) => {
+    let basket = JSON.parse(localStorage.getItem("basket"));
+    if (!basket) {
+      basket = {
+        totalPrice: 0,
+        clothes: [],
+      };
+    }
+    let productToBasket = {
+      ...product,
+      count: 1,
+      subPrice: product.price,
+    };
+
+    let check = basket.clothes.find((item) => {
+      return item.id === productToBasket.id;
+    });
+    if (check) {
+      basket.clothes = basket.clothes.map((item) => {
+        if (item.id === productToBasket.id) {
+          item.count++;
+          item.subPrice = item.count * item.price;
+          return item;
+        }
+        return item;
+      });
+    } else {
+      basket.clothes.push(productToBasket);
+    }
+    basket.totalPrice = basket.clothes.reduce((prev, item) => {
+      return prev + item.subPrice;
+    }, 0);
+    localStorage.setItem("basket", JSON.stringify(basket));
+    getBasketCount();
+  };
+
+  const getProductsFromBasket = () => {
+    let basket = JSON.parse(localStorage.getItem("basket"));
+    let action = {
+      type: "GET_PRODUCTS_FROM_BASKET",
+      payload: basket,
+    };
+    dispatch(action);
+  };
+
+  const getPrices = () => {
+    fetch(productsApi)
+      .then((res) => res.json())
+      .then((data) => {
+        data.sort((a, b) => a.price - b.price);
+        let max = data[data.length - 1].price;
+        let min = data[0].price;
+        setFilterByPrice([min, max]);
+        setMinMax([min, max]);
+      });
+  };
+
+  const getBasketCount = () => {
+    let basket = JSON.parse(localStorage.getItem("basket"));
+    if (!basket) {
+      basket = {
+        clothes: [],
+      };
+    }
+    let action = {
+      type: "GET_BASKET_COUNT",
+      payload: basket.clothes.length,
+    };
+    dispatch(action);
+  };
+
+  React.useEffect(() => {
+    getPrices();
+    getBasketCount();
+  }, []);
 
   const data = {
     products: state.products,
@@ -135,6 +221,11 @@ function AdminProvider({ children }) {
     setSearchWord,
     setFilterByPrice,
     setCurrentPage,
+
+    basketProducts: state.basketProducts,
+    basketCount: state.basketCount,
+    addProductToBasket,
+    getProductsFromBasket,
   };
   return <AdminContext.Provider value={data}>{children}</AdminContext.Provider>;
 }

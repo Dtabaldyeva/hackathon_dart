@@ -1,5 +1,6 @@
 import React from "react";
 import { AdminContext } from "../contexts/AdminProvider";
+import styled from "styled-components";
 import {
   Container,
   Table,
@@ -11,8 +12,26 @@ import {
 import { Delete, Edit } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
+const Top = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+`;
+
+const TopButton = styled.button`
+  padding: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  border: ${(props) => props.type === "filled" && "none"};
+  background-color: ${(props) =>
+    props.type === "filled" ? "black" : "transparent"};
+  color: ${(props) => props.type === "filled" && "white"};
+`;
+
 function AdminPage() {
-  const { getProducts, products, deleteProduct } = React.useContext(AdminContext);
+  const { getProducts, products, deleteProduct } =
+    React.useContext(AdminContext);
 
   React.useEffect(() => {
     getProducts();
@@ -22,11 +41,16 @@ function AdminPage() {
     <div className="admin-page">
       <Container>
         <h2>Админ панель</h2>
+        <Top>
+          <TopButton>
+            <Link to={`/`}>Home</Link>
+          </TopButton>
+        </Top>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>#</TableCell>
-              <TableCell>Type</TableCell>          
+              <TableCell>Type</TableCell>
               <TableCell>Price</TableCell>
               <TableCell>Color</TableCell>
               <TableCell>Picture</TableCell>
@@ -46,7 +70,7 @@ function AdminPage() {
                   <img width={100} src={item.img} alt="" />
                 </TableCell>
                 <TableCell>{item.desc}</TableCell>
-              
+
                 <TableCell>
                   <Delete onClick={() => deleteProduct(item.id)} />
                 </TableCell>

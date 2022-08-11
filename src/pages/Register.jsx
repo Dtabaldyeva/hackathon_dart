@@ -1,5 +1,23 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import { Link } from "react-router-dom";
+
+const Top = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+`;
+
+const TopButton = styled.button`
+  padding: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  border: ${(props) => props.type === "filled" && "none"};
+  background-color: ${(props) =>
+    props.type === "filled" ? "black" : "transparent"};
+  color: ${(props) => props.type === "filled" && "white"};
+`;
 
 const Container = styled.div`
   width: 100vw;
@@ -59,6 +77,12 @@ const Register = () => {
     <Container>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
+        <Top>
+          <TopButton>
+            <Link to={`/`}>Home</Link>
+          </TopButton>
+        </Top>
+
         <Form>
           <Input placeholder="name" />
           <Input placeholder="last name" />

@@ -66,7 +66,8 @@ const Icon = styled.div`
 `;
 
 const Product = ({ item }) => {
-  const { getProducts, products } = React.useContext(AdminContext);
+  const { getProducts, products, addProductToBasket } =
+    React.useContext(AdminContext);
 
   React.useEffect(() => {
     getProducts();
@@ -80,7 +81,7 @@ const Product = ({ item }) => {
       ))} */}
       <Image src={item.img} />
       <Info>
-        <Icon>
+        <Icon onClick={() => addProductToBasket(item)}>
           <ShoppingCartOutlined />
         </Icon>
         <Icon>
